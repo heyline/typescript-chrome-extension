@@ -9,7 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {},
+  "dependencies": {
+    "@vespaiach/axios-fetch-adapter": "^0.3.1",
+    "axios": "^0.27.2"
+  },
   "devDependencies": {
     "@types/chrome": "0.0.177",
     "copy-webpack-plugin": "^10.2.1",

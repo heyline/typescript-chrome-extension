@@ -1,15 +1,25 @@
-let active = false;
+import * as Sync from './sync/sunc';
 
-function makeOrange(color: string): void {
-    document.body.style.backgroundColor = color;
-}
+let a = new Sync.SomeClass()
 
 chrome.action.onClicked.addListener((tab) => {
-    active = !active;
-    const color = active ? 'orange' : 'white';
-    chrome.scripting.executeScript({
-        target: {tabId: tab.id ? tab.id : -1},
-        func: makeOrange,
-        args: [color]
-    }).then();
+    console.log(a.getName())
+
 });
+
+
+// let active = false;
+//
+// function makeOrange(color: string): void {
+//     document.body.style.backgroundColor = color;
+// }
+//
+// chrome.action.onClicked.addListener((tab) => {
+//     active = !active;
+//     const color = active ? 'orange' : 'white';
+//     chrome.scripting.executeScript({
+//         target: {tabId: tab.id ? tab.id : -1},
+//         func: makeOrange,
+//         args: [color]
+//     }).then();
+// });

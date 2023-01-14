@@ -1,3 +1,6 @@
 # Project exclude paths
 /dist/
 /node_modules/
+/.idea/modules.xml
+/.idea/typescript-chrome-extension.iml
+/.idea/vcs.xml

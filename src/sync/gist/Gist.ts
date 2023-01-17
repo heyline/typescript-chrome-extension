@@ -1,4 +1,4 @@
-import axios, {AxiosResponse, AxiosRequestConfig} from "axios"
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios"
 import fetchAdapter from "@vespaiach/axios-fetch-adapter";
 
 /**
@@ -12,23 +12,25 @@ import fetchAdapter from "@vespaiach/axios-fetch-adapter";
  */
 export abstract class Gist {
 
+    abstract url: string
+
     protected readonly token: string
     protected readonly gistId?: string
 
-    protected customBaseUrl: string | undefined
-
-    constructor(token: string, gistId?: string, customBaseUrl?: string) {
+    constructor(token: string, gistId?: string) {
         this.token = token
         this.gistId = gistId
-        this.customBaseUrl = customBaseUrl
     }
-
-    abstract get(): Promise<string>
 
     /**
      * @return gist id
      * */
     abstract init(config: object): Promise<string>
+
+    /**
+     * @return gist json string
+     * */
+    abstract get(): Promise<string>
 
     /**
      * @return gist id
@@ -61,12 +63,16 @@ export abstract class Gist {
         return result.data.files["twp-config.json"].content as string
     }
 
-    toFiles(localConfig: object): object {
+    wrapConfig(localConfig: object) {
         const files: { [key: string]: object } = {}
         files["twp-config.json"] = {
             content: JSON.stringify(localConfig)
         }
-        return files
+        return {
+            files: files,
+            description: "sync config",
+            public: false
+        }
     }
 
 }

@@ -2,31 +2,12 @@ import {Gist} from "./Gist"
 
 export class GitHub extends Gist {
 
-    private readonly baseUrl = "https://api.github.com/gists"
-
-    get(): Promise<string> {
-        const url = `${this.baseUrl}/${this.gistId}`
-        return new Promise(async (resolve, reject) => {
-            this.request({
-                method: 'GET',
-                url,
-                headers: {
-                    Authorization: `Bearer ${this.token}`
-                }
-            }).then(res => {
-                resolve(this.parseResponse(res))
-            }).catch(reject)
-        })
-    }
+    override readonly url = "https://api.github.com/gists"
 
     init(config: object): Promise<string> {
-        const data = {
-            files: this.toFiles(config),
-            description: "sync config",
-            public: false
-        }
-        const url = this.baseUrl
         const method = 'POST'
+        const url = this.url
+        const data = this.wrapConfig(config)
         return new Promise(async (resolve, reject) => {
             this.request({
                 method,
@@ -41,14 +22,25 @@ export class GitHub extends Gist {
         })
     }
 
+    get(): Promise<string> {
+        const url = `${this.url}/${this.gistId}`
+        return new Promise(async (resolve, reject) => {
+            this.request({
+                method: 'GET',
+                url,
+                headers: {
+                    Authorization: `Bearer ${this.token}`
+                }
+            }).then(res => {
+                resolve(this.parseResponse(res))
+            }).catch(reject)
+        })
+    }
+
     cover(config: object): Promise<string> {
-        const data = {
-            files: this.toFiles(config),
-            description: "sync config",
-            public: false
-        }
-        const url = `${this.baseUrl}/${this.gistId}`
         const method = 'PATCH'
+        const url = `${this.url}/${this.gistId}`
+        const data = this.wrapConfig(config)
         return new Promise(async (resolve, reject) => {
             this.request({
                 method,
@@ -67,7 +59,7 @@ export class GitHub extends Gist {
         return new Promise(async (resolve, reject) => {
             this.request({
                 method: 'DELETE',
-                url: `${this.baseUrl}/${this.gistId}`,
+                url: `${this.url}/${this.gistId}`,
                 headers: {
                     Authorization: `Bearer ${this.token}`
                 }

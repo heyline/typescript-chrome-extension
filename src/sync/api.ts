@@ -10,11 +10,11 @@ export function getGist(
         try {
             let gist!: Gist
             if (destination === 'GitHub') {
-                gist = new GitHub(token, gistId);
+                gist = new GitHub(token)
             }
-            resolve(await gist.get())
+            resolve(await gist.get(gistId))
         } catch (error) {
-            reject(error);
+            reject(error)
         }
     })
 }
@@ -28,7 +28,7 @@ export function initGist(
         try {
             let gist!: Gist
             if (destination === 'GitHub') {
-                gist = new GitHub(token, undefined);
+                gist = new GitHub(token);
             }
             resolve(await gist.init(config))
         } catch (error) {
@@ -47,9 +47,9 @@ export function coverGist(
         try {
             let gist!: Gist
             if (destination === 'GitHub') {
-                gist = new GitHub(token, gistId);
+                gist = new GitHub(token);
             }
-            resolve(await gist.cover(config))
+            resolve(await gist.cover(config, gistId))
         } catch (error) {
             reject(error);
         }

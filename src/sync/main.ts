@@ -22,7 +22,7 @@ export class SomeClass {
     async upLoad() {
         try {
             // const store = yaml.load(this.config.readRaw()) as any;
-            const localConfig = {haha: 83404}
+            const localConfig = {haha: 777}
             let gistId = await coverGist('GitHub', "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", "3974fdeeddede4d83dc3c7a4afdbdaac", localConfig)
         } catch (error) {
             console.error(error);

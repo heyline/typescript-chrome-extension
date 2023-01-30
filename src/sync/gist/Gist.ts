@@ -15,11 +15,9 @@ export abstract class Gist {
     abstract url: string
 
     protected readonly token: string
-    protected readonly gistId?: string
 
-    constructor(token: string, gistId?: string) {
+    constructor(token: string) {
         this.token = token
-        this.gistId = gistId
     }
 
     /**
@@ -28,16 +26,16 @@ export abstract class Gist {
     abstract init(config: object): Promise<string>
 
     /**
-     * @return gist json string
-     * */
-    abstract get(): Promise<string>
-
-    /**
      * @return gist id
      * */
-    abstract cover(config: object): Promise<string>
+    abstract cover(config: object, gistId: string): Promise<string>
 
-    abstract del(): Promise<boolean>
+    /**
+     * @return gist json string
+     * */
+    abstract get(gistId: string): Promise<string>
+
+    abstract del(gistId: string): Promise<boolean>
 
     request(request: AxiosRequestConfig): Promise<AxiosResponse> {
         // fix axios not working

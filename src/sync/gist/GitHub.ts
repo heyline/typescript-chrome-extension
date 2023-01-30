@@ -22,24 +22,9 @@ export class GitHub extends Gist {
         })
     }
 
-    get(): Promise<string> {
-        const url = `${this.url}/${this.gistId}`
-        return new Promise(async (resolve, reject) => {
-            this.request({
-                method: 'GET',
-                url,
-                headers: {
-                    Authorization: `Bearer ${this.token}`
-                }
-            }).then(res => {
-                resolve(this.parseResponse(res))
-            }).catch(reject)
-        })
-    }
-
-    cover(config: object): Promise<string> {
+    cover(config: object, gistId: string): Promise<string> {
         const method = 'PATCH'
-        const url = `${this.url}/${this.gistId}`
+        const url = `${this.url}/${gistId}`
         const data = this.wrapConfig(config)
         return new Promise(async (resolve, reject) => {
             this.request({
@@ -55,11 +40,26 @@ export class GitHub extends Gist {
         })
     }
 
-    del(): Promise<boolean> {
+    get(gistId: string): Promise<string> {
+        const url = `${this.url}/${gistId}`
+        return new Promise(async (resolve, reject) => {
+            this.request({
+                method: 'GET',
+                url,
+                headers: {
+                    Authorization: `Bearer ${this.token}`
+                }
+            }).then(res => {
+                resolve(this.parseResponse(res))
+            }).catch(reject)
+        })
+    }
+
+    del(gistId: string): Promise<boolean> {
         return new Promise(async (resolve, reject) => {
             this.request({
                 method: 'DELETE',
-                url: `${this.url}/${this.gistId}`,
+                url: `${this.url}/${gistId}`,
                 headers: {
                     Authorization: `Bearer ${this.token}`
                 }

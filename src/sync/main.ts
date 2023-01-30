@@ -5,7 +5,7 @@ export class SomeClass {
 
     async down() {
         try {
-            const configOnTheCloud = await getGist('GitHub', "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", "3685832f668f453dc9ec89c4f973a10b")
+            const configOnTheCloud = await getGist('GitHub', "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", "3685832f668f453dc9ec89c4f973a10b")
             console.log(configOnTheCloud)
 
             const config = yaml.load(configOnTheCloud) as any
@@ -22,8 +22,8 @@ export class SomeClass {
     async upLoad() {
         try {
             // const store = yaml.load(this.config.readRaw()) as any;
-            const localConfig = {haha: 456}
-            let gistId = await coverGist('GitHub', "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", "3685832f668f453dc9ec89c4f973a10b", localConfig)
+            const localConfig = {haha: 83404}
+            let gistId = await coverGist('GitHub', "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", "3974fdeeddede4d83dc3c7a4afdbdaac", localConfig)
         } catch (error) {
             console.error(error);
         } finally {
@@ -34,7 +34,7 @@ export class SomeClass {
         try {
             // const store = yaml.load(this.config.readRaw()) as any;
             const localConfig = {haha: 123}
-            let gistId = await initGist('GitHub', "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", localConfig)
+            let gistId = await initGist('GitHub', "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", localConfig)
         } catch (error) {
             console.error(error);
         } finally {
